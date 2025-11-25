@@ -24,6 +24,7 @@ def generate_blanks(text, blanking_prob=0.25):
 def fill_blanks(blanked_text, model, token):
 
 
+
 load_dotenv()
 
 hf_token = os.getenv("HF_TOKEN")
@@ -37,7 +38,7 @@ client = InferenceClient(
 
 response = client.chat_completion(
     messages=[
-        {"role": "user", "content": "Wo wurde Marcel Reich Ranicki? Was hat er studiert? Wo lebt er heute?"}
+        {"role": "user", "content": "Wo wurde Shakespeare geboren?"}
     ],
     max_tokens=200,
     temperature=0.9,

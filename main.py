@@ -1,6 +1,24 @@
 import os
+import re
+import random
 from dotenv import load_dotenv
 from huggingface_hub import InferenceClient
+
+def generate_blanks(text, blanking_prob=0.25):
+    tokens = re.findall(r"\w+|[.,!?;:]|\s+", text)
+    blanked_tokens = []
+
+    for tok in tokens:
+        if re.match(r"\w+", tok):
+            if random.random() < blanking_prob:
+                blanked_tokens.append("<blank>")
+            else:
+                blanked_tokens.append(tok)
+        else:
+            blanked_tokens.append(tok)
+
+    return "".join(blanked_tokens)
+
 
 load_dotenv()
 
@@ -22,3 +40,5 @@ response = client.chat_completion(
 )
 
 print(response.choices[0].message["content"])
+
+print(generate_blanks("Hi, my name is Dominik. What is your name? Where are you from?"))

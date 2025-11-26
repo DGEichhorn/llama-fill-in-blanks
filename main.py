@@ -26,6 +26,13 @@ def fill_blanks(blanked_text, model, token):
 
     system_prompt = f"""
     You are a strict text reconstruction engine.
+    
+    You must adhere to the following rules:
+    1. You must replace each <blank> by exactly one word that fits the context of the text.
+    2. Do not rephrase, rewrite, reorder, or improve the sentence.
+    3. Do not change any existing words.
+    4. Preserve punctuation and spacing exactly.
+    5. Do not output any extra text. Do just return the final reconstructed sentence.
     """
 
     user_prompt = f"""
@@ -54,7 +61,8 @@ hf_token = os.getenv("HF_TOKEN")
 model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
 
 
-text = "Hi, my name is Dominik. What is your name? Where are you from?"
+#text = "Hi, my name is Dominik. What is your name? Where are you from?"
+text = "It is now Advent, and the festive season has begun with a special sense of anticipation. People all around are preparing their homes with lights, candles, and decorations. The streets feel warmer and more joyful despite the cold weather. Everyone is looking forward to celebrating Christmas with family and friends soon. The atmosphere is filled with hope, tradition, and holiday spirit."
 blanked_text = generate_blanks(text)
 
 print(blanked_text)
